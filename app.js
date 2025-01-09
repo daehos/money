@@ -30,9 +30,6 @@ app.use(function (req, res, next) {
     next();
   }
 });
-// 
-
-
 
 const isAdmin = function (req, res, next) {
     if (req.session.userId && res.session.role != "admin") {
@@ -42,8 +39,19 @@ const isAdmin = function (req, res, next) {
       next();
     }
   }
-
 app.get("/", Controller.home);
+//categories
+app.get("/categories", Controller.categories);
+
+//transaction
+app.get("/transaction", Controller.transaction);
+
+//profiles
+app.get("/profiles", Controller.profiles)
+
+//changePassword
+app.get("/changepassword", Controller.changePassword)
+
 app.listen(port, () => {
   console.log(`Anyeongaseo port: ${port} imnida`);
 });
