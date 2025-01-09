@@ -62,6 +62,23 @@ app.get("/profiles", Controller.profiles);
 //changePassword
 app.get("/changepassword", Controller.changePassword);
 
+//fitur add category
+app.get("/categories/add", Controller.renderAddCategory);
+app.post("/categories/add", Controller.handlerAddCategory);
+
+//fitur edit category
+app.get("/categories/edit/:id", Controller.renderEditCategory);
+app.post("/categories/edit/:id", Controller.handlerEditCategory);
+
+//fitur add Department
+app.get("/department/add", Controller.renderAddDepartment);
+app.post("/department/add", Controller.handlerAddDepartment);
+
+//fitur edit Department
+app.get("/department/edit/:id", Controller.renderEditDepartment);
+app.post("/department/edit/:id", Controller.handlerEditDepartment);
+
+
 app.listen(port, () => {
   console.log(`Anyeongaseo port: ${port} imnida`);
 });

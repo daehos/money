@@ -16,8 +16,8 @@
           <!-- Add Category Button -->
           <button
             class="mt-6 px-6 py-2 bg-sky-600 text-white font-semibold rounded-lg shadow hover:bg-sky-500"
-          >
-            Add Category
+             >
+           <a href="/categories/add">Add Category </a> 
           </button>
         </p>
         <br />
@@ -26,7 +26,7 @@
           <table class="min-w-full table-auto text-left">
             <thead>
               <tr class="bg-sky-600">
-                <th class="px-6 py-3 text-sm font-semibold">Id</th>
+                <th class="px-6 py-3 text-sm font-semibold">No</th>
                 <th class="px-6 py-3 text-sm font-semibold">Name</th>
                 <th
                   class="px-6 py-3 text-sm font-semibold flex justify-center space-x-4"
@@ -41,13 +41,12 @@
                 <td class="px-6 py-4 text-sm"><%= i+1 %></td>
                 <td class="px-6 py-4 text-sm"><%= el.name %></td>
                 <td class="px-6 py-4 text-sm flex justify-center space-x-4">
-                  <a href=""
-                    ><button
+                  <a href="/categories/edit/<%= el.id %>"><button
                       class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
                     >
                       Edit
-                    </button></a
-                  >
+                    </button>
+                    </a>
                   <a href="/categories/<%= el.id %>/delete"
                     ><button
                       class="ml-4 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50"

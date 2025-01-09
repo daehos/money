@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <center>
+      <div class="bg-sky-800 w-full p-6 min-h-screen">
+        <h2 class="text-2xl font-bold mb-6" style="color: white;">
+          Form Add Category
+        </h2>
+        <p>
+          <!-- Add Category Button -->
+          <!-- <button
+            class="mt-6 px-6 py-2 bg-sky-600 text-white font-semibold rounded-lg shadow hover:bg-sky-500"
+             >
+           <a href="/categories/add">Add Category </a> 
+          </button> -->
+        </p>
+        <br />
+
+        <div class="overflow-x-auto bg-sky-700 rounded-lg shadow-lg w-1/2">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold text-sky-700 mb-6">Add New Category</h3>
+                <form action="/categories/add" method="POST">
+                    <!-- Course Name -->
+                    <div class="mb-4">
+                        <label for="categories" class="block text-sm font-medium text-black">Category Name</label>
+                        <input type="text" id="categories" name="name" required 
+                            class="mt-1 p-3 w-full border border-sky-300 rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 placeholder-grey" placeholder="Enter Category">
+                    </div>
+            
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                        class="w-full py-3 bg-sky-500 text-white rounded-md hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
+                        Submit
+                    </button>
+                </form>
+
+
+                
+            </div>
+        </div>
+        <br />
+        <!-- Back Button -->
+       <a href="/categories"><button
+        class="mt-4 px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg shadow hover:bg-gray-500"
+      >
+        Back
+      </button></a> 
+        <br /><br />
+      </div>
+    </center>
+  </body>
+</html>

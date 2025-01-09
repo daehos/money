@@ -4,6 +4,122 @@ const { User } = require("../models");
 const bcrypt = require("bcryptjs");
 const e = require("express");
 module.exports = class Controller {
+
+  static async renderEditDepartment(req, res){
+    try {
+      let{id} = req.params
+      let data = await Department.findAll({
+          where : {
+            id:id
+          }
+      })
+      data = data[0]
+      // res.send(data)
+      res.render("formeditdepartment", {data}) 
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async handlerEditDepartment(req, res){
+    try {
+      // res.render("formeditcategory")
+      let {name} = req.body
+      let {id} = req.params
+      let department = await Department.findOne({
+        where: {
+            id: id  
+        }
+    });
+    department.name = name     
+    await department.save();
+    
+    // res.send(department)
+    res.redirect('/department')
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async renderAddDepartment(req, res){
+    try {
+      res.render("formadddepartment") 
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async handlerAddDepartment(req, res){
+    try {
+      let {name} = req.body
+      await Department.create({
+        name
+      })
+      // res.render("formaddcategory")  
+      res.redirect("/department")  
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async renderEditCategory(req, res){
+    try {
+      let{id} = req.params
+      let data = await Category.findAll({
+          where : {
+            id:id
+          }
+      })
+      data = data[0]
+      // res.send(data)
+      res.render("formeditcategory", {data}) 
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async handlerEditCategory(req, res){
+    try {
+      // res.render("formeditcategory")
+      let {name} = req.body
+      let {id} = req.params
+      let category = await Category.findOne({
+        where: {
+            id: id  
+        }
+    });
+      category.name = name     
+    await category.save();
+    
+    // res.send(category)
+    res.redirect('/categories')
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async renderAddCategory(req, res){
+    try {
+      res.render("formaddcategory")      
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async handlerAddCategory(req, res){
+    try {
+      let {name} = req.body
+      await Category.create({
+        name
+      })
+      // res.render("formaddcategory")  
+      res.redirect("/categories")    
+    } catch (error) {
+      res.send(error)
+    }
+  }
+  
+
   static async changePassword(req, res) {
     try {
       res.render("changepassword");
