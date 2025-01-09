@@ -12,13 +12,34 @@ module.exports = class Controller {
     }
   }
 
+  //Profile START
   static async profiles(req, res) {
     try {
-      res.render("profiles");
+      let { id } = req.params;
+    //   console.log(id, "<<<<ID NIHHH");
+
+      let data = await Profile.findAll({
+        where: {
+          UserId: id,
+        },
+        include: [
+          {
+            model: User,
+            include: [
+              {
+                model: Department,
+              },
+            ],
+          },
+        ],
+      });
+        // res.send(data);
+      res.render("profiles", { data });
     } catch (error) {
       res.send(error);
     }
   }
+  //Profile END
 
   static async transaction(req, res) {
     try {
@@ -29,7 +50,8 @@ module.exports = class Controller {
   }
 
   static async home(req, res) {
-    res.render("home");
+    let { id } = req.query;
+    res.render("home", { id });
     try {
     } catch (error) {
       res.send(error);
@@ -81,7 +103,7 @@ module.exports = class Controller {
         if (isValidPass) {
           req.session.userId = user.id;
           req.session.role = user.role;
-          return res.redirect("/");
+          return res.redirect(`/?id=${user.id}`);
         } else {
           const error = "Invalid username/password";
           return res.redirect(`/login?error=${error}`);
@@ -126,7 +148,7 @@ module.exports = class Controller {
   static async departments(req, res) {
     try {
       let data = await Department.findAll();
-    //   res.send(data)
+      //   res.send(data)
       res.render("department", { data });
     } catch (error) {
       res.send(error);
@@ -144,16 +166,6 @@ module.exports = class Controller {
   }
   //Department END
 
-  //Profile START
-//   static async departments(req, res) {
-//     try {
-//       let data = await Profile.findAll();
-//       res.render("department", { data });
-//     } catch (error) {
-//       res.send(error);
-//     }
-//   }
-  //Profile END
   //   static async home(req, res) {
   //     try {
   //     } catch (error) {
