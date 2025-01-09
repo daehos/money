@@ -1,4 +1,5 @@
 const { where } = require("sequelize");
+const { Category, Department } = require("../models");
 const { User } = require("../models");
 const bcrypt = require("bcryptjs");
 const e = require("express");
@@ -45,17 +46,28 @@ module.exports = class Controller {
   }
   static async renderRegister(req, res) {
     try {
-      res.render("register");
+      let data = await Department.findAll();
+      console.log(data);
+      res.render("register", { data });
     } catch (error) {
       res.send(error);
     }
   }
   static async handlerRegister(req, res) {
     try {
-      const { username, password, role } = req.body;
-      await User.create({ username, password, role });
+      const { username, password, role, DepartmentId } = req.body;
+      console.log(DepartmentId);
+
+      await User.create({
+        username,
+        password,
+        role,
+        DepartmentId: Number(DepartmentId),
+      });
       res.redirect("/login");
     } catch (error) {
+      console.log(error);
+
       res.send(error);
     }
   }
@@ -76,6 +88,8 @@ module.exports = class Controller {
         const isValidPass = bcrypt.compareSync(password, user.password); //true or false
 
         if (isValidPass) {
+          req.session.userId = user.id;
+          req.session.role = user.role;
           return res.redirect("/");
         } else {
           const error = "Invalid username/password";
@@ -88,6 +102,14 @@ module.exports = class Controller {
     } catch (error) {
       res.send(error);
     }
+  }
+  static getLogout(req, res) {
+    req.session.destroy((err) => {
+      if (err) res.send(err);
+      else {
+        res.redirect("/login");
+      }
+    });
   }
   //   static async home(req, res) {
   //     try {
