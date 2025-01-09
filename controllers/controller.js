@@ -28,14 +28,6 @@ module.exports = class Controller {
     }
   }
 
-  static async categories(req, res) {
-    try {
-      res.render("categories");
-    } catch (error) {
-      res.send(error);
-    }
-  }
-
   static async home(req, res) {
     res.render("home");
     try {
@@ -119,13 +111,33 @@ module.exports = class Controller {
       res.send(error);
     }
   }
+  static async categoriesDelete(req, res) {
+    try {
+      let { id } = req.params;
+      await Category.destroy({ where: { id } });
+      res.redirect("/categories");
+    } catch (error) {
+      res.send(error);
+    }
+  }
   //Category END
 
   //Department START
   static async departments(req, res) {
     try {
       let data = await Department.findAll();
+    //   res.send(data)
       res.render("department", { data });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+
+  static async departmentsDelete(req, res) {
+    try {
+      let { id } = req.params;
+      await Department.destroy({ where: { id } });
+      res.redirect("/department");
     } catch (error) {
       res.send(error);
     }
@@ -133,14 +145,14 @@ module.exports = class Controller {
   //Department END
 
   //Profile START
-  static async departments(req, res) {
-    try {
-      let data = await Profile.findAll();
-      res.render("department", { data });
-    } catch (error) {
-      res.send(error);
-    }
-  }
+//   static async departments(req, res) {
+//     try {
+//       let data = await Profile.findAll();
+//       res.render("department", { data });
+//     } catch (error) {
+//       res.send(error);
+//     }
+//   }
   //Profile END
   //   static async home(req, res) {
   //     try {

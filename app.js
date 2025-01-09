@@ -22,32 +22,35 @@ app.post("/register", Controller.handlerRegister);
 app.get("/login", Controller.renderLogin);
 app.post("/login", Controller.handlerLogin);
 
-app.use(function (req, res, next) {
-  if (!req.session.userId) {
-    let error = "Please Login First";
-    res.redirect(`/login?error=${error}`);
-  } else {
-    next();
-  }
-});
+// app.use(function (req, res, next) {
+//   if (!req.session.userId) {
+//     let error = "Please Login First";
+//     res.redirect(`/login?error=${error}`);
+//   } else {
+//     next();
+//   }
+// });
 
-const isAdmin = function (req, res, next) {
-  if (req.session.userId && res.session.role != "admin") {
-    let error = "You Have no Access";
-    res.redirect(`/login?error=${error}`);
-  } else {
-    next();
-  }
-};
+// const isAdmin = function (req, res, next) {
+//   if (req.session.userId && res.session.role != "admin") {
+//     let error = "You Have no Access";
+//     res.redirect(`/login?error=${error}`);
+//   } else {
+//     next();
+//   }
+// };
 app.get("/", Controller.home);
 app.get("/logout", Controller.getLogout);
 //categories START
 app.get("/categories", Controller.categories);
+app.get("/categories/:id/delete", Controller.categoriesDelete);
 
 //categories END
 
 //Department START
 app.get("/department", Controller.departments);
+app.get("/department/:id/delete", Controller.departmentsDelete);
+
 //Department END
 
 //transaction

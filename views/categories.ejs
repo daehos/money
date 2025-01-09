@@ -8,62 +8,68 @@
   </head>
   <body>
     <center>
-    <div class="bg-sky-800 text-white w-full p-6 min-h-screen">
-        <h2 class="text-2xl font-bold mb-6">Management Money - Data Category</h2>
+      <div class="bg-sky-800 text-white w-full p-6 min-h-screen">
+        <h2 class="text-2xl font-bold mb-6">
+          Management Money - Data Category
+        </h2>
         <p>
-             <!-- Add Category Button -->
-        <button class="mt-6 px-6 py-2 bg-sky-600 text-white font-semibold rounded-lg shadow hover:bg-sky-500">
+          <!-- Add Category Button -->
+          <button
+            class="mt-6 px-6 py-2 bg-sky-600 text-white font-semibold rounded-lg shadow hover:bg-sky-500"
+          >
             Add Category
-        </button>
+          </button>
         </p>
-        <br>
-
-      
+        <br />
 
         <div class="overflow-x-auto bg-sky-700 rounded-lg shadow-lg w-1/2">
-            <table class="min-w-full table-auto text-left">
-                <thead>
-                    <tr class="bg-sky-600">
-                        <th class="px-6 py-3 text-sm font-semibold">Id</th>
-                        <th class="px-6 py-3 text-sm font-semibold">Name</th>
-                        <th class="px-6 py-3 text-sm font-semibold flex justify-center space-x-4">Action</th>
-
-                       
-                    </tr>
-                </thead>
-                <tbody>
-                     
-              <tr class="border-b border-sky-600 hover:bg-sky-600">
-                <td class="px-6 py-4 text-sm">></td>
-                <td class="px-6 py-4 text-sm">></td>
+          <table class="min-w-full table-auto text-left">
+            <thead>
+              <tr class="bg-sky-600">
+                <th class="px-6 py-3 text-sm font-semibold">Id</th>
+                <th class="px-6 py-3 text-sm font-semibold">Name</th>
+                <th
+                  class="px-6 py-3 text-sm font-semibold flex justify-center space-x-4"
+                >
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((el, i) => { %>
+              <tr class="border-b border-sky-600 hover:bg-sky-500">
+                <td class="px-6 py-4 text-sm"><%= i+1 %></td>
+                <td class="px-6 py-4 text-sm"><%= el.name %></td>
+                <td class="px-6 py-4 text-sm flex justify-center space-x-4">
+                  <a href=""
+                    ><button
+                      class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
+                    >
+                      Edit
+                    </button></a
+                  >
+                  <a href="/categories/<%= el.id %>/delete"
+                    ><button
+                      class="ml-4 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50"
+                    >
+                      Delete
+                    </button></a
+                  >
+                </td>
               </tr>
               <% }) %>
-                    <tr class="border-b border-sky-600 hover:bg-sky-500">
-                    <% data.forEach((el, i) => { %>
-
-                        <td class="px-6 py-4 text-sm"><%= i+1 %</td>
-                        <td class="px-6 py-4 text-sm"><%= el.name %</td>
-                        <td class="px-6 py-4 text-sm flex justify-center space-x-4">
-                            <button class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50">
-                                Edit
-                            </button>
-                            <button class="ml-4 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50">
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                     <% }) %>
-                  
-                </tbody>
-            </table>
+            </tbody>
+          </table>
         </div>
-        <br>
-          <!-- Back Button -->
-          <button class="mt-4 px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg shadow hover:bg-gray-500">
-            Back
-        </button>
-        <br><br>
-    </div>
-</center>
-</body>
+        <br />
+        <!-- Back Button -->
+       <a href="/"><button
+        class="mt-4 px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg shadow hover:bg-gray-500"
+      >
+        Back
+      </button></a> 
+        <br /><br />
+      </div>
+    </center>
+  </body>
 </html>
