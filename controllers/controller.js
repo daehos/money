@@ -1,7 +1,41 @@
 const { where } = require("sequelize");
 const { User } = require("../models");
 const bcrypt = require("bcryptjs");
+const e = require("express");
 module.exports = class Controller {
+
+  static async changePassword(req, res) {
+    try {
+      res.render("changepassword")
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async profiles(req, res) {
+    try {
+      res.render("profiles")
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async transaction(req, res) {
+    try {
+      res.render("transaction")
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
+  static async categories(req, res) {
+    try {
+      res.render("categories")
+    } catch (error) {
+      res.send(error)
+    }
+  }
+
   static async home(req, res) {
     res.render("home");
     try {

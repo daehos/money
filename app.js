@@ -16,6 +16,18 @@ app.post("/register", Controller.handlerRegister);
 app.get("/login", Controller.renderLogin);
 app.post("/login", Controller.handlerLogin);
 
+//categories
+app.get("/categories", Controller.categories);
+
+//transaction
+app.get("/transaction", Controller.transaction);
+
+//profiles
+app.get("/profiles", Controller.profiles)
+
+//changePassword
+app.get("/changepassword", Controller.changePassword)
+
 app.listen(port, () => {
   console.log(`Anyeongaseo port: ${port} imnida`);
 });
