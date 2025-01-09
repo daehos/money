@@ -1,39 +1,38 @@
 const { where } = require("sequelize");
-const { Category, Department } = require("../models");
+const { Category, Department, Profile } = require("../models");
 const { User } = require("../models");
 const bcrypt = require("bcryptjs");
 const e = require("express");
 module.exports = class Controller {
-
   static async changePassword(req, res) {
     try {
-      res.render("changepassword")
+      res.render("changepassword");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
   static async profiles(req, res) {
     try {
-      res.render("profiles")
+      res.render("profiles");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
   static async transaction(req, res) {
     try {
-      res.render("transaction")
+      res.render("transaction");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
   static async categories(req, res) {
     try {
-      res.render("categories")
+      res.render("categories");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
@@ -111,6 +110,38 @@ module.exports = class Controller {
       }
     });
   }
+  //Category START
+  static async categories(req, res) {
+    try {
+      let data = await Category.findAll();
+      res.render("categories", { data });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+  //Category END
+
+  //Department START
+  static async departments(req, res) {
+    try {
+      let data = await Department.findAll();
+      res.render("department", { data });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+  //Department END
+
+  //Profile START
+  static async departments(req, res) {
+    try {
+      let data = await Profile.findAll();
+      res.render("department", { data });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+  //Profile END
   //   static async home(req, res) {
   //     try {
   //     } catch (error) {
