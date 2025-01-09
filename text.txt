@@ -1,0 +1,11 @@
+npx sequelize-cli model:generate --name Transaction --attributes date:DATE,description:STRING,type:STRING,amount:INTEGER
+
+npx sequelize-cli model:generate --name Category --attributes name:string
+
+npx sequelize-cli model:generate --name Department --attributes name:string
+
+npx sequelize-cli model:generate --name Profile --attributes fullName:string,profilePictures:string,UserId:INTEGER
+
+npx sequelize-cli migration:generate --name addFKtoUser
+
+npx sequelize-cli migration:generate --name addFKtoTransaction

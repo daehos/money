@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       username: DataTypes.STRING,
       password: DataTypes.STRING,
       role: DataTypes.STRING,
+      DepartmentId: DataTypes.INTEGER,
     },
     {
       sequelize,
@@ -27,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     const salt = bcrypt.genSaltSync(8);
     const hash = bcrypt.hashSync(user.password, salt);
 
-    user.password = hash
+    user.password = hash;
   });
   return User;
 };
