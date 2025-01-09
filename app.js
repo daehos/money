@@ -22,14 +22,14 @@ app.post("/register", Controller.handlerRegister);
 app.get("/login", Controller.renderLogin);
 app.post("/login", Controller.handlerLogin);
 
-// app.use(function (req, res, next) {
-//   if (!req.session.userId) {
-//     let error = "Please Login First";
-//     res.redirect(`/login?error=${error}`);
-//   } else {
-//     next();
-//   }
-// });
+app.use(function (req, res, next) {
+  if (!req.session.userId) {
+    let error = "Please Login First";
+    res.redirect(`/login?error=${error}`);
+  } else {
+    next();
+  }
+});
 
 // const isAdmin = function (req, res, next) {
 //   if (req.session.userId && res.session.role != "admin") {
@@ -57,7 +57,7 @@ app.get("/department/:id/delete", Controller.departmentsDelete);
 app.get("/transaction", Controller.transaction);
 
 //profiles
-app.get("/profiles", Controller.profiles);
+app.get("/profiles/:id", Controller.profiles);
 
 //changePassword
 app.get("/changepassword", Controller.changePassword);

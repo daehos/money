@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+
 const bcrypt = require("bcryptjs");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -10,6 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.belongsTo(models.Department, {
+        foreignKey: "DepartmentId",
+      });
+      User.hasOne(models.Profile, {
+        foreignKey: "UserId",
+      });
+      User.hasMany(models.Transaction, {
+        foreignKey: "UserId",
+      });
     }
   }
   User.init(
@@ -22,6 +32,17 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "User",
+      hooks: {
+        async afterCreate(user, option) {
+          const { Profile } = sequelize.models;
+          await Profile.create({
+            UserId: user.id,
+            fullName: user.username,
+            profilePictures:
+              "https://static.vecteezy.com/system/resources/thumbnails/004/511/281/small_2x/default-avatar-photo-placeholder-profile-picture-vector.jpg",
+          });
+        },
+      },
     }
   );
   User.beforeCreate(async (user, option) => {
