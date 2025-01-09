@@ -1,124 +1,122 @@
-const { where } = require("sequelize");
-const { Category, Department, Profile } = require("../models");
+const formatRupiah = require("../helper/helper");
+const { Category, Department, Profile, Transaction } = require("../models");
 const { User } = require("../models");
 const bcrypt = require("bcryptjs");
 const e = require("express");
 module.exports = class Controller {
-
-  static async renderEditDepartment(req, res){
+  static async renderEditDepartment(req, res) {
     try {
-      let{id} = req.params
+      let { id } = req.params;
       let data = await Department.findAll({
-          where : {
-            id:id
-          }
-      })
-      data = data[0]
+        where: {
+          id: id,
+        },
+      });
+      data = data[0];
       // res.send(data)
-      res.render("formeditdepartment", {data}) 
+      res.render("formeditdepartment", { data });
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
-  static async handlerEditDepartment(req, res){
+  static async handlerEditDepartment(req, res) {
     try {
       // res.render("formeditcategory")
-      let {name} = req.body
-      let {id} = req.params
+      let { name } = req.body;
+      let { id } = req.params;
       let department = await Department.findOne({
         where: {
-            id: id  
-        }
-    });
-    department.name = name     
-    await department.save();
-    
-    // res.send(department)
-    res.redirect('/department')
+          id: id,
+        },
+      });
+      department.name = name;
+      await department.save();
+
+      // res.send(department)
+      res.redirect("/department");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
-  static async renderAddDepartment(req, res){
+  static async renderAddDepartment(req, res) {
     try {
-      res.render("formadddepartment") 
+      res.render("formadddepartment");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
-  static async handlerAddDepartment(req, res){
+  static async handlerAddDepartment(req, res) {
     try {
-      let {name} = req.body
+      let { name } = req.body;
       await Department.create({
-        name
-      })
-      // res.render("formaddcategory")  
-      res.redirect("/department")  
+        name,
+      });
+      // res.render("formaddcategory")
+      res.redirect("/department");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
-  static async renderEditCategory(req, res){
+  static async renderEditCategory(req, res) {
     try {
-      let{id} = req.params
+      let { id } = req.params;
       let data = await Category.findAll({
-          where : {
-            id:id
-          }
-      })
-      data = data[0]
+        where: {
+          id: id,
+        },
+      });
+      data = data[0];
       // res.send(data)
-      res.render("formeditcategory", {data}) 
+      res.render("formeditcategory", { data });
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
-  static async handlerEditCategory(req, res){
+  static async handlerEditCategory(req, res) {
     try {
       // res.render("formeditcategory")
-      let {name} = req.body
-      let {id} = req.params
+      let { name } = req.body;
+      let { id } = req.params;
       let category = await Category.findOne({
         where: {
-            id: id  
-        }
-    });
-      category.name = name     
-    await category.save();
-    
-    // res.send(category)
-    res.redirect('/categories')
+          id: id,
+        },
+      });
+      category.name = name;
+      await category.save();
+
+      // res.send(category)
+      res.redirect("/categories");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
-  static async renderAddCategory(req, res){
+  static async renderAddCategory(req, res) {
     try {
-      res.render("formaddcategory")      
+      res.render("formaddcategory");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
 
-  static async handlerAddCategory(req, res){
+  static async handlerAddCategory(req, res) {
     try {
-      let {name} = req.body
+      let { name } = req.body;
       await Category.create({
-        name
-      })
-      // res.render("formaddcategory")  
-      res.redirect("/categories")    
+        name,
+      });
+      // res.render("formaddcategory")
+      res.redirect("/categories");
     } catch (error) {
-      res.send(error)
+      res.send(error);
     }
   }
-  
 
   static async changePassword(req, res) {
     try {
@@ -132,7 +130,7 @@ module.exports = class Controller {
   static async profiles(req, res) {
     try {
       let { id } = req.params;
-    //   console.log(id, "<<<<ID NIHHH");
+      //   console.log(id, "<<<<ID NIHHH");
 
       let data = await Profile.findAll({
         where: {
@@ -149,7 +147,7 @@ module.exports = class Controller {
           },
         ],
       });
-        // res.send(data);
+      // res.send(data);
       res.render("profiles", { data });
     } catch (error) {
       res.send(error);
@@ -157,13 +155,93 @@ module.exports = class Controller {
   }
   //Profile END
 
+  //Transaction START
   static async transaction(req, res) {
     try {
-      res.render("transaction");
+      let { id } = req.params;
+      let data = await Transaction.findAll({
+        include: [Category, User],
+      });
+      // res.send(data)
+      res.render("transaction", { data, formatRupiah, id });
     } catch (error) {
       res.send(error);
     }
   }
+  static async renderAddTransaction(req, res) {
+    try {
+      let { id } = req.params;
+      let category = await Category.findAll();
+      let user = await User.findAll({
+        where: { id },
+        include: { model: Department },
+      });
+
+      res.render("addTransaction", { category, user, formatRupiah, id });
+      //   res.send(user);
+      //   res.render("transaction", { data, formatRupiah });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+  static async renderEditTransaction(req, res) {
+    try {
+      let { id } = req.params;
+      let data = await Transaction.findByPk(id);
+      let category = await Category.findAll();
+      let user = await User.findAll({
+        where: { id },
+        include: { model: Department },
+      });
+
+      res.render("editTrans", {
+        data    ,
+        category,
+        user,
+        formatRupiah,
+        id,
+      });
+        // res.send(data);
+      //   res.render("transaction", { data, formatRupiah });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+  static async handlerAddTransaction(req, res) {
+    try {
+      let { userId } = req.session;
+      let { date, description, type, amount, CategoryId, UserId } = req.body;
+      await Transaction.create({
+        date,
+        description,
+        type,
+        amount,
+        CategoryId,
+        UserId,
+      });
+      res.redirect(`/transaction/${userId}`);
+      //   res.send(user);
+      //   res.render("transaction", { data, formatRupiah });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+  static async deleteTransaction(req, res) {
+    try {
+      let { userId } = req.session;
+      let { id } = req.params;
+      await Transaction.destroy({
+        where: { id },
+      });
+      res.redirect(`/transaction/${userId}`);
+      //   res.send(user);
+      //   res.render("transaction", { data, formatRupiah });
+    } catch (error) {
+      res.send(error);
+    }
+  }
+
+  //Transaction END
 
   static async home(req, res) {
     let { id } = req.query;

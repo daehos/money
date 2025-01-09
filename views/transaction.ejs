@@ -1,65 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-</head>
-<body>
+  </head>
+  <body>
     <center>
-    <div class="bg-sky-800 text-white w-full p-6 min-h-screen">
-        <h2 class="text-2xl font-bold mb-6">Management Money - Data Transaction</h2>
+      <div class="bg-sky-800 flex-row text-white w-full p-6 min-h-screen">
+        <h2 class="text-2xl font-bold mb-6">
+          Management Money - Data Transaction
+        </h2>
+        <p>
+          <!-- Add Category Button -->
+          <button
+            class="mt-6 px-6 py-2 bg-sky-600 text-white font-semibold rounded-lg shadow hover:bg-sky-500"
+          >
+            <a href="/transaction/<%=id%>/add">Add Transaction</a>
+          </button>
+        </p>
+        <br />
         <div class="overflow-x-auto bg-sky-700 rounded-lg shadow-lg w-1/2">
-            <table class="min-w-full table-auto text-left">
-                <thead>
-                    <tr class="bg-sky-600">
-                        <th class="px-6 py-3 text-sm font-semibold">No</th>
-                        <th class="px-6 py-3 text-sm font-semibold">Date</th>
-                        <th class="px-6 py-3 text-sm font-semibold">Description</th>
-                        <th class="px-6 py-3 text-sm font-semibold">Sort</th>
-                        <th class="px-6 py-3 text-sm font-semibold">Cost</th>
-                        <th class="px-6 py-3 text-sm font-semibold">CategoryId</th>
-                        <th class="px-6 py-3 text-sm font-semibold">UserId</th>
-                        <th class="px-6 py-3 text-sm font-semibold">Action</th>
+          <table class="min-w-full table-auto text-left">
+            <thead>
+              <tr class="bg-sky-600">
+                <th class="px-6 py-3 text-sm font-semibold">No</th>
+                <th class="px-6 py-3 text-sm font-semibold">Date</th>
+                <th class="px-6 py-3 text-sm font-semibold">Description</th>
+                <th class="px-6 py-3 text-sm font-semibold">Type</th>
+                <th class="px-6 py-3 text-sm font-semibold">Cost</th>
+                <th class="px-6 py-3 text-sm font-semibold">Category</th>
+                <th class="px-6 py-3 text-sm font-semibold">Username</th>
+                <th class="px-6 py-3 text-sm font-semibold">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% data.forEach((el,i)=> { %>
 
- 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-b border-sky-600 hover:bg-sky-600">
-                        <td class="px-6 py-4 text-sm">1</td>
-                        <td class="px-6 py-4 text-sm">2025-01-09</td>
-                        <td class="px-6 py-4 text-sm">Expense</td>
-                        <td class="px-6 py-4 text-sm">Belanja barang atk</td>
-                        <td class="px-6 py-4 text-sm">50000</td>
-                        <td class="px-6 py-4 text-sm">1</td>
-                        <td class="px-6 py-4 text-sm">1</td>
-
-                    </tr>
-                    <tr class="border-b border-sky-600 hover:bg-sky-600">
-                        <td class="px-6 py-4 text-sm">2</td>
-                        <td class="px-6 py-4 text-sm">2025-01-09</td>
-                        <td class="px-6 py-4 text-sm">Expense</td>
-                        <td class="px-6 py-4 text-sm">Belanja barang atk</td>
-                        <td class="px-6 py-4 text-sm">50000</td>
-                        <td class="px-6 py-4 text-sm">1</td>
-                        <td class="px-6 py-4 text-sm">1</td>
-                    </tr>
-                    <tr class="border-b border-sky-600 hover:bg-sky-600">
-                        <td class="px-6 py-4 text-sm">3</td>
-                        <td class="px-6 py-4 text-sm">2025-01-09</td>
-                        <td class="px-6 py-4 text-sm">Expense</td>
-                        <td class="px-6 py-4 text-sm">Belanja barang atk</td>
-                        <td class="px-6 py-4 text-sm">50000</td>
-                        <td class="px-6 py-4 text-sm">1</td>
-                        <td class="px-6 py-4 text-sm">1</td>
-                    </tr>
-                </tbody>
-            </table>
+              <tr class="border-b border-sky-600 hover:bg-sky-600">
+                <td class="px-6 py-4 text-sm"><%= i+1 %></td>
+                <td class="px-6 py-4 text-sm"><%= el.date %></td>
+                <td class="px-6 py-4 text-sm"><%= el.description %></td>
+                <td class="px-6 py-4 text-sm"><%= el.type %></td>
+                <td class="px-6 py-4 text-sm">
+                  <%= formatRupiah(el.amount) %>
+                </td>
+                <td class="px-6 py-4 text-sm"><%= el.Category.name %></td>
+                <td class="px-6 py-4 text-sm"><%= el.User.username %></td>
+                <td class="px-6 py-4 text-sm">  <a href="/transaction/<%= el.id %>/edit"><button
+                    class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-50"
+                  >
+                    Edit
+                  </button>
+                  </a>
+                <a href="/transaction/<%= el.id %>/delete"
+                  ><button
+                    class="ml-4 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50"
+                  >
+                    Delete
+                  </button></a</td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
         </div>
-    </div>
-</center>
-</body>
+        <a href="/?id=<%= id %>"
+          ><button
+            class="mt-4 px-6 py-2 bg-gray-600 text-white font-semibold rounded-lg shadow hover:bg-gray-500"
+          >
+            Back
+          </button></a
+        >
+      </div>
+    </center>
+  </body>
 </html>
